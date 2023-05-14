@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Switch, Route, Link, BrowserRouter} from 'react-router-dom';
 
 import adminAddVehicle from './components/adminAddVehicle';
+import adminViewVehicle from './components/adminViewVehicle';
+import adminEditVehicle from './components/adminEditVehicle';
 
 class App extends Component{
 
@@ -11,7 +13,9 @@ class App extends Component{
         <div>
                 <Router>
                     <Switch>
-                        <Route exact path='/' component={adminAddVehicle}/>
+                        <Route exact path='/' component={adminViewVehicle}/>
+                        <Route  path='/adminAddVehicle' component={adminAddVehicle}/>
+                        <Route  path='/adminEditVehicle/:id' component={adminEditVehicle}/>
                     </Switch>
                 </Router>
 

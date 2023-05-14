@@ -5,7 +5,7 @@ const rentalRoutes = express.Router();
 let Vehicles = require('./vehicle.model');
 
 rentalRoutes.route('/adminaddvehicle').post(function (req,res){
-    console.log("Vehicle add function called...")
+    console.log("Vehicle add function called...");
     let vehicles = new Vehicles(req.body);
     vehicles.save()
         .then(vehicles => {
@@ -16,58 +16,60 @@ rentalRoutes.route('/adminaddvehicle').post(function (req,res){
         });
 });
 
-// businessRoutes.route('/:id').get(function (req, res){
-//     let email = req.params.id;
-//     console.log(email);
-//     Customers.findOne({$and:[{email : email}]},function (err,cus){
-//         if(err)
-//             console.log(err);
-//         else{
-//             res.json(cus)
-//         }
-//     });
+rentalRoutes.route('/admiviewvehicle').get(function (req, res){
+    console.log("Vehicle view function called...");
+   
+    Vehicles.find(function (err,veh){
+        if(err)
+            console.log(err);
+        else{
+            res.json(veh)
+        }
+    });
 
-// });
+});
 
-// businessRoutes.route('/edit/:id').get(function (req,res){
-//     let id = req.params.id;
-//     Customers.findById(id, function (err,customers){
-//         res.json(customers);
-//     });
-// });
+rentalRoutes.route('/admineditvehicle/:id').get(function (req,res){
+    console.log("Vehicle edit function called...");
+    let id = req.params.id;
+    Vehicles.findById(id, function (err,vehicles){
+        res.json(vehicles);
+    });
+});
 
-// businessRoutes.route('/update/:id').post(function (req,res){
-//     let id = req.params.id;
-//     Customers.findById(id, function (err, customers){
-//         if(!customers)
-//             res.status(404).send("Data is not found??");
-//         else{
-//             customers.name = req.body.name;
-//             customers.address = req.body.address;
-//             customers.nic = req.body.nic;
-//             customers.phone = req.body.phone;
-//             customers.customer_type = req.body.customer_type;
-//             customers.email = req.body.email;
-//             customers.password = req.body.password;
+rentalRoutes.route('/adminupdatevehicle/:id').post(function (req,res){
+    console.log("Vehicle update function called...");
+    let id = req.params.id;
+    Vehicles.findById(id, function (err, vehicles){
+        if(!vehicles)
+            res.status(404).send("Data is not found??");
+        else{
+            vehicles.id = req.body.id;
+            vehicles.type = req.body.address;
+            vehicles.manufacturer = req.body.manufacturer;
+            vehicles.year = req.body.year;
+            vehicles.passengers = req.body.passengers;
+            vehicles.price = req.body.price;
 
 
-//             customers.save().then(business => {
-//                 res.json('Update Complete');
-//             })
-//                 .catch(err =>{
-//                     res.status(400).send("Unable to update data");
-//                 });
-//         }
-//     });
-// });
+            vehicles.save().then(vehicles => {
+                res.json('Update Complete');
+            })
+                .catch(err =>{
+                    res.status(400).send("Unable to update data");
+                });
+        }
+    });
+});
 
-// businessRoutes.route('/delete/:id').get(function(req,res){
-//     Customers.findByIdAndRemove({_id:req.params.id}, function (err, customers){
-//         if(err)res.json(err);
+rentalRoutes.route('/admindeletevehicle/:id').get(function(req,res){
+    console.log("Vehicle delete function called...");
+    Vehicles.findByIdAndRemove({_id:req.params.id}, function (err, vehicles){
+        if(err)res.json(err);
 
-//         else res.json('Successfully Removed');
-//     });
-// });
+        else res.json('Successfully Removed');
+    });
+});
 
 // businessRoutes.route('/loginbuyer').post(function (req, res){
 //     let email = req.body.email;

@@ -5,7 +5,7 @@ import './css/style.css';
 import logo from './img/logo.png';
 
 
-export default  class adminAddVehicle extends  Component{
+export default  class adminEditVehicle extends  Component{
 
 
     constructor(props){
@@ -29,6 +29,24 @@ export default  class adminAddVehicle extends  Component{
             price:'',
             status:''
         }
+    }
+
+    componentDidMount() {
+        //alert('edit id ' +this.props.match.params.id);
+        axios.get('http://localhost:4000/rental/admineditvehicle/'+this.props.match.params.id)
+            .then(res => {
+                this.setState({
+                    id: res.data.id,
+                    type: res.data.type,
+                    manufacturer: res.data.manufacturer,
+                    year: res.data.year,
+                    passengers: res.data.passengers,
+                    price: res.data.price
+                });
+            })
+            .catch(function (error){
+                console.log("Can't Get Data");
+            })
     }
     onChangeId(e){
         this.setState( {
@@ -63,7 +81,7 @@ export default  class adminAddVehicle extends  Component{
     onSubmit(e){
         e.preventDefault();
         this.state.status = "Available";
-        
+       
         const obj = {
             id : this.state.id,
             type : this.state.type,
@@ -76,9 +94,9 @@ export default  class adminAddVehicle extends  Component{
 
        
        
-                        axios.post('http://localhost:4000/rental/adminaddvehicle',obj)
+                        axios.post('http://localhost:4000/rental/adminupdatevehicle/'+this.props.match.params.id,obj)
                         .then(res => {
-                            alert("Vehicle Add Successfully");
+                            alert("Vehicle Update Successfully");
                             this.setState({
                                 id: '',
                                 type: '',
@@ -150,7 +168,7 @@ export default  class adminAddVehicle extends  Component{
                             </div>
                         
                             <div className="form-group">
-                                <input type = "submit" value = "Add Vehicle" className="btn btn-info"/>
+                                <input type = "submit" value = "Update Vehicle" className="btn btn-info"/>
                             </div>
                         </form>
                         <button className='btn btn-dark'><a href='/' style={{textDecoration:'none',color:'white'}}> View Vehicle</a></button>
