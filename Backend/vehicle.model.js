@@ -2,30 +2,30 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-Customers = new Schema({
-    name: {
+Vehicles = new Schema({
+    id: {
         type: String
     },
-    address: {
+    type: {
         type: String
     },
-    nic: {
+    manufacturer: {
         type: String
     },
-    phone: {
+    year: {
         type: String
     },
-    customer_type: {
+    passengers: {
         type: String
     },
-    email: {
+    price: {
         type: String
     },
-    password: {
+    status: {
         type: String
     }
 }, {
-    collation: 'customers'
+    collation: 'vehicles'
 });
 
-module.exports = mongoose.model('Customers',Customers);
+module.exports = mongoose.model('Vehicles',Vehicles);

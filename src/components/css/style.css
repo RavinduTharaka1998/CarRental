@@ -1,0 +1,62 @@
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #321375;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+  }
+  
+  .sidebar a {
+    display: block;
+    color: rgb(0, 0, 0);
+    padding: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    background: white;
+    padding: 2px;
+    margin-top: 20px;
+    width: 80%;
+    border-radius: 30px;
+}
+  
+div.content {
+    margin-left: 200px;
+    padding: 1px;
+    height: 1000px;
+}
+
+.content .top {
+    background-color: #321375;
+    float: right;
+    width: 100%;
+    margin-left: 100px;
+}
+
+.content .top a {
+    background-color: rgb(255, 255, 255);
+    text-decoration: none;
+    color: black;
+    border-radius: 20px;
+    padding: 5px 20px;
+    font-weight: bold;
+    float: right;
+    margin-top: 15px;
+    margin-right: 20px;
+}
+
+.content .top img {
+    float: right;
+}
+
+p {
+    background-color: white;
+    color: #321375;
+    font-weight: bold;
+    margin-top: 100px;
+    margin-left: 20px;
+    font-size: 20px;
+}
