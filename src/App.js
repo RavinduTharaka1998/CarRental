@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, Switch, Route, Link, BrowserRouter} from 'react-router-dom';
 
+import adminAddVehicle from './components/adminAddVehicle';
+
 class App extends Component{
 
   render() {
@@ -9,7 +11,7 @@ class App extends Component{
         <div>
                 <Router>
                     <Switch>
-                        {/* <Route exact path='/' component={Landing}/> */}
+                        <Route exact path='/' component={adminAddVehicle}/>
                     </Switch>
                 </Router>
 
