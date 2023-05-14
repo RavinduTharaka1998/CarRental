@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import './css/style.css';
 import logo from './img/logo.png';
+import profile from './img/profile.png';
 
 
 export default  class adminEditVehicle extends  Component{
@@ -132,7 +133,7 @@ export default  class adminEditVehicle extends  Component{
                 <div class="content">
                     <div className='top'>
                         <a href = "">LogOut</a>
-                        <img src = {logo} width="80"/>
+                        <img src = {profile} width="30"/>
                     </div>
                     <p>ADD NEW VEHICLE</p>
                     <div className="container" style={{marginTop:10}}>
@@ -145,7 +146,7 @@ export default  class adminEditVehicle extends  Component{
                                 <label>Vehicle Type :</label>
                                 {/* <input type ="time" required className="form-control" value={this.state.arrival} onChange = {this.onChangeArrivalTime}/> */}
                                 <select required className="form-control" value={this.state.type} onChange = {this.onChangeType}>
-                                    <option>select vehicle type....</option>
+                                    <option value={this.state.type}>{this.state.type}</option>
                                     <option value = "Car">Car</option>
                                     <option value = "Van">Van</option>
                                 </select>

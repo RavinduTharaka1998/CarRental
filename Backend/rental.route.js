@@ -45,7 +45,7 @@ rentalRoutes.route('/adminupdatevehicle/:id').post(function (req,res){
             res.status(404).send("Data is not found??");
         else{
             vehicles.id = req.body.id;
-            vehicles.type = req.body.address;
+            vehicles.type = req.body.type;
             vehicles.manufacturer = req.body.manufacturer;
             vehicles.year = req.body.year;
             vehicles.passengers = req.body.passengers;
@@ -71,52 +71,17 @@ rentalRoutes.route('/admindeletevehicle/:id').get(function(req,res){
     });
 });
 
-// businessRoutes.route('/loginbuyer').post(function (req, res){
-//     let email = req.body.email;
-//     let password = req.body.password;
-//     let customer_type = req.body.customer_type;
-
-//     let customers = new Customers(req.body);
-
-//     Customers.findOne({$and:[{email : email},{password : password},{customer_type : customer_type}]})
-//         .then(customers => {
-//             if(customers){
-//                 customers.name = req.body.name;
-//                 res.status(200).send({
-
-//                     message: "Successful Login"
-//                 });
-//             }
-//             else{
-//                 res.status(200).send({
-//                     message: "User Not Found"
-//                 });
-//             }
-//         })
-// });
-
-// businessRoutes.route('/loginseller').post(function (req, res){
-//     let email = req.body.email;
-//     let password = req.body.password;
-//     let customer_type = req.body.customer_type;
-
-//     let customers = new Customers(req.body);
-
-//     Customers.findOne({$and:[{email : email},{password : password},{customer_type : customer_type}]})
-//         .then(customers => {
-//             if(customers){
-//                 customers.name = req.body.name;
-//                 res.status(200).send({
-
-//                     message: "Successful Login"
-//                 });
-//             }
-//             else{
-//                 res.status(200).send({
-//                     message: "User Not Found"
-//                 });
-//             }
-//         })
-// });
+rentalRoutes.route('/admisearchvehicle/:id').get(function (req, res){
+    console.log("Vehicle search function called...");
+    let search = req.params.id;
+    Vehicles.find({$or:[{id: search}, {type: search},{manufacturer: search},{year: search},{passengers: search},{status: search},{price: search}]},function (err,vehi){ 
+   
+        if(err)
+            console.log(err);
+        else{
+            res.json(vehi)
+        }
+    });
+});
 
 module.exports = rentalRoutes;

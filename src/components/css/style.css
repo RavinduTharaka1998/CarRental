@@ -34,6 +34,8 @@ div.content {
     float: right;
     width: 100%;
     margin-left: 100px;
+    padding: 10px;
+    align-items: center;
 }
 
 .content .top a {
@@ -44,12 +46,14 @@ div.content {
     padding: 5px 20px;
     font-weight: bold;
     float: right;
-    margin-top: 15px;
-    margin-right: 20px;
+    margin-top: 10px;
+    margin-right: 100px;
+    margin-left: 30px;
 }
 
 .content .top img {
     float: right;
+    margin-top: 15px;
 }
 
 p {

@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Switch, Route, Link, BrowserRouter} from 'react
 import adminAddVehicle from './components/adminAddVehicle';
 import adminViewVehicle from './components/adminViewVehicle';
 import adminEditVehicle from './components/adminEditVehicle';
+import adminSearchVehicle from './components/adminSearchVehicle';
 
 class App extends Component{
 
@@ -16,6 +17,7 @@ class App extends Component{
                         <Route exact path='/' component={adminViewVehicle}/>
                         <Route  path='/adminAddVehicle' component={adminAddVehicle}/>
                         <Route  path='/adminEditVehicle/:id' component={adminEditVehicle}/>
+                        <Route  path='/adminSearchVehicle/:id' component={adminSearchVehicle}/>
                     </Switch>
                 </Router>
 

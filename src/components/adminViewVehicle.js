@@ -1,10 +1,13 @@
 import  React, {Component} from 'react';
 import axios from 'axios';
+import jsPDF from "jspdf";
+import 'jspdf-autotable';
 
 import AdminVehicleTableRow from './AdminVehicleTableRow';
 
 import './css/style.css';
 import logo from './img/logo.png';
+import profile from './img/profile.png';
 
 
 export default  class adminViewVehicle extends  Component{
@@ -41,6 +44,32 @@ export default  class adminViewVehicle extends  Component{
         });
 
     }
+
+    exportPDF = () => {
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+    
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+    
+        doc.setFontSize(15);
+    
+        const title = "Vehicle Report";
+        const headers = [["ID","Vehicle Type", "Manufacturer","Year", "Passengers","Price", "Status"]];
+    
+        const data = this.state.vehicle.map(elt=> [elt.id, elt.type, elt.manufacturer, elt.year,elt.passengers, elt.price,elt.status]);
+    
+        let content = {
+          startY: 50,
+          head: headers,
+          body: data
+        };
+    
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("MilkMachineReport.pdf")
+      }
    
     render() {
         return(
@@ -63,7 +92,7 @@ export default  class adminViewVehicle extends  Component{
                 <div class="content">
                     <div className='top'>
                         <a href = "">LogOut</a>
-                        <img src = {logo} width="80"/>
+                        <img src = {profile} width="30"/>
                     </div>
                     <p>VEHICLE MANAGEMENT</p>
 
@@ -73,7 +102,7 @@ export default  class adminViewVehicle extends  Component{
                                 <input type ="text" required value={this.state.search} onChange = {this.onChangeSearch} className="form-control"/>
                             </div>
                             <div className="form-group" style ={{float:'right'}}>
-                                <a href ={"/adminsearchorder/"+this.state.search+"/"+this.props.match.params.id} style ={{float:'right',background:'#313332',padding:7,borderRadius:5,color:'white',textDecoration:'none'}}>Search</a>
+                                <a href ={"/adminSearchVehicle/"+this.state.search} style ={{float:'right',background:'#313332',padding:7,borderRadius:5,color:'white',textDecoration:'none'}}>Search</a>
                             </div>
                         </from>
                         <button className='btn btn-info'><a href='/adminAddVehicle' style={{textDecoration:'none',color:'white'}}> + Add New Vehicle</a></button>
@@ -96,6 +125,8 @@ export default  class adminViewVehicle extends  Component{
                                 </tbody>
                         </table>
                     </div>
+                    <br/>
+                    <button className='btn btn-dark' onClick={() => this.exportPDF()} style={{marginLeft:100}}>-- Export --</button>
                 </div>
             </div>
         )

@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import './css/style.css';
 import logo from './img/logo.png';
+import profile from './img/profile.png';
 
 
 export default  class adminAddVehicle extends  Component{
@@ -63,7 +64,7 @@ export default  class adminAddVehicle extends  Component{
     onSubmit(e){
         e.preventDefault();
         this.state.status = "Available";
-        
+        alert(this.state.type)
         const obj = {
             id : this.state.id,
             type : this.state.type,
@@ -114,7 +115,7 @@ export default  class adminAddVehicle extends  Component{
                 <div class="content">
                     <div className='top'>
                         <a href = "">LogOut</a>
-                        <img src = {logo} width="80"/>
+                        <img src = {profile} width="30"/>
                     </div>
                     <p>ADD NEW VEHICLE</p>
                     <div className="container" style={{marginTop:10}}>
