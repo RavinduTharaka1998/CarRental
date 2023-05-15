@@ -7,6 +7,8 @@ import adminViewVehicle from './components/adminViewVehicle';
 import adminEditVehicle from './components/adminEditVehicle';
 import adminSearchVehicle from './components/adminSearchVehicle';
 
+import cusHome from './components/cusHome';
+
 class App extends Component{
 
   render() {
@@ -18,6 +20,8 @@ class App extends Component{
                         <Route  path='/adminAddVehicle' component={adminAddVehicle}/>
                         <Route  path='/adminEditVehicle/:id' component={adminEditVehicle}/>
                         <Route  path='/adminSearchVehicle/:id' component={adminSearchVehicle}/>
+
+                        <Route  path='/cusHome' component={cusHome}/>
                     </Switch>
                 </Router>
 
