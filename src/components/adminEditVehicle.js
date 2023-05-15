@@ -135,7 +135,7 @@ export default  class adminEditVehicle extends  Component{
                         <a href = "">LogOut</a>
                         <img src = {profile} width="30"/>
                     </div>
-                    <p>ADD NEW VEHICLE</p>
+                    <p>EDIT VEHICLE</p>
                     <div className="container" style={{marginTop:10}}>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
