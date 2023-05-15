@@ -8,7 +8,7 @@ import adminEditVehicle from './components/adminEditVehicle';
 import adminSearchVehicle from './components/adminSearchVehicle';
 
 import cusHome from './components/cusHome';
-import cusPay from './components/cusPay';
+import {CusPay} from './components/CusPay';
 
 class App extends Component{
 
@@ -23,7 +23,7 @@ class App extends Component{
                         <Route  path='/adminSearchVehicle/:id' component={adminSearchVehicle}/>
 
                         <Route  path='/cusHome' component={cusHome}/>
-                        <Route  path='/cusPay/:id' component={cusPay}/>
+                        <Route  path='/cusPay/:id' component={CusPay}/>
                     </Switch>
                 </Router>
 

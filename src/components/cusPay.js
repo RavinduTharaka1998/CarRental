@@ -1,6 +1,6 @@
-import  React, {Component} from 'react';
-import axios from 'axios';
-
+import  React, {useRef} from 'react';
+import emailjs from '@emailjs/browser';
+import { useParams } from 'react-router-dom';
 
 
 import './css/cusStyle.css';
@@ -8,116 +8,26 @@ import logo from './img/logo.png';
 import profile from './img/profile.png';
 
 
-export default  class cusPay extends  Component{
+export const CusPay = () => {
+       const form = useRef();
+       const params = useParams();
 
+       console.log(params.id)
 
-    constructor(props){
-        super(props);
-
-        this.onChangeId = this.onChangeId.bind(this);
-        this.onChangeType = this.onChangeType.bind(this);
-        this.onChangeManufacturer = this.onChangeManufacturer.bind(this);
-        this.onChangeYear = this.onChangeYear.bind(this);
-        this.onChangePassengers = this.onChangePassengers.bind(this);
-        this.onChangePrice = this.onChangePrice.bind(this);
-
-        this.onSubmit = this.onSubmit.bind(this);
-
-        this.state = {
-            id: '',
-            type: '',
-            manufacturer:'',
-            year:'',
-            passengers:'',
-            price:'',
-            status:''
-        }
-
-       
-    }
-
-    componentDidMount() {
-        //alert('edit id ' +this.props.match.params.id);
-        axios.get('http://localhost:4000/rental/admineditvehicle/'+this.props.match.params.id)
-            .then(res => {
-                this.setState({
-                    id: res.data.id,
-                    type: res.data.type,
-                    manufacturer: res.data.manufacturer,
-                    year: res.data.year,
-                    passengers: res.data.passengers,
-                    price: res.data.price
-                });
-            })
-            .catch(function (error){
-                console.log("Can't Get Data");
-            })
-    }
-    onChangeId(e){
-        this.setState( {
-           id: e.target.value
-        });
-    }
-    onChangeType(e){
-        this.setState( {
-            type: e.target.value
-        });
-    }
-    onChangeManufacturer(e){
-        this.setState( {
-            manufacturer: e.target.value
-        });
-    }
-    onChangeYear(e){
-        this.setState( {
-            year: e.target.value
-        });
-    }
-    onChangePassengers(e){
-        this.setState( {
-            passengers: e.target.value
-        });
-    }
-    onChangePrice(e){
-        this.setState( {
-            price: e.target.value
-        });
-    }
-    onSubmit(e){
+       const sendEmail = (e) => {
         e.preventDefault();
-        this.state.status = "Available";
-       
-        const obj = {
-            id : this.state.id,
-            type : this.state.type,
-            manufacturer : this.state.manufacturer,
-            year : this.state.year,
-            passengers : this.state.passengers,
-            price : this.state.price,
-            status : this.state.status
-        };
-
-       
-       
-                        axios.post('http://localhost:4000/rental/adminupdatevehicle/'+this.props.match.params.id,obj)
-                        .then(res => {
-                            alert("Vehicle Update Successfully");
-                            this.setState({
-                                id: '',
-                                type: '',
-                                manufacturer:'',
-                                year:'',
-                                passengers:'',
-                                price:''
-                    
-                            })
-                            console.log(res.data)});
-                        window.location.replace('/');
-                    
-    }
-
     
-    render() {
+        emailjs.sendForm('service_nxw06lw', 'template_5hrsyue', form.current, 'M1qoTWPNn2PyJbwJg')
+          .then((result) => {
+              console.log(result.text);
+              alert("Your Message successfully Send...")
+              window.location.replace('/cusHome');
+          }, (error) => {
+              console.log(error.text);
+          });
+       };
+
+
         return(
             <div>
                 <div className='header-top'>
@@ -144,52 +54,44 @@ export default  class cusPay extends  Component{
                 <br/>
                 <h5 style={{marginLeft:200,color:'red'}}>Proceed To Pay</h5>
                 <div className="container" style={{marginTop:30}}>
-                        <form onSubmit={this.onSubmit}>
-                            <div className="form-group">
-                                <label>Vehicle Id :</label>
-                                <input type ="text" required  className="form-control" value={this.state.id} onChange = {this.onChangeId} readOnly/>
-                            </div>
-                            <div className="form-group">
-                                <label>Manufacturer :</label>
-                                <input type ="text" required className="form-control" value={this.state.manufacturer} onChange = {this.onChangeManufacturer} readOnly/>
-                            </div>
+                        <form ref={form} onSubmit={sendEmail}>
                             <div className="form-group">
                                 <label>Rental Price :</label>
-                                <input type ="number"  value={this.state.price} onChange = {this.onChangePrice} className="form-control" readOnly/>
+                                <input type ="number" name = "rental_price" value={params.id}  className="form-control" readOnly/>
                             </div>
                             <hr/>
                             <h4>Customer Details</h4>
                             <hr/>
                             <div className="form-group">
                                 <label>Customer Name :</label>
-                                <input type ="text"  value={this.state.name} onChange = {this.onChangeName} className="form-control"/>
+                                <input type ="text"  name = "name" className="form-control" required/>
                             </div>
 
                             <div className="form-group">
                                 <label>Phone :</label>
-                                <input type ="number"  value={this.state.phone} onChange = {this.onChangePhone} className="form-control"/>
+                                <input type ="number" name = "phone"  className="form-control" required/>
                             </div>
 
                             <div className="form-group">
                                 <label>e-Mail :</label>
-                                <input type ="email"  value={this.state.email} onChange = {this.onChangeEmail} className="form-control"/>
+                                <input type ="email" name = "email"  className="form-control" required/>
                             </div>
                             <hr/>
                             <h4>Card Details</h4>
                             <hr/>
                             <div className="form-group">
                                 <label>Card Number :</label>
-                                <input type ="number"  value={this.state.number} onChange = {this.onChangeNumber} className="form-control"/>
+                                <input type ="number"   className="form-control" required/>
                             </div>
 
                             <div className="form-group">
                                 <label>Ex Date :</label>
-                                <input type ="date"  value={this.state.date} onChange = {this.onChangeDate} className="form-control"/>
+                                <input type ="date" name = "date"  className="form-control" required/>
                             </div>
 
                             <div className="form-group">
                                 <label>CVV :</label>
-                                <input type ="number"  value={this.state.cvv} onChange = {this.onChangeCvv} className="form-control"/>
+                                <input type ="number" name = "cvv" className="form-control" required/>
                             </div>
                         
                             <div className="form-group">
@@ -219,5 +121,5 @@ export default  class cusPay extends  Component{
                 </div>
             </div>
         )
-    }
+    
 }

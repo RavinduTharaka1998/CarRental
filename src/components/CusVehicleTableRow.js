@@ -58,7 +58,7 @@ class TableRow extends Component {
                                 <td>{this.props.obj.status}</td>
                             </tr>
                             <tr>
-                                <td> <Link to={"/cusPay/"+this.props.obj._id} className="btn btn-success">Purchase</Link></td>
+                                <td> <Link to={"/cusPay/"+this.props.obj.price} className="btn btn-success">Purchase</Link></td>
                             </tr>
                         </table>
                         <br/>
